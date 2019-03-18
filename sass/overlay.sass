@@ -1,0 +1,23 @@
+#cp-loaderOverlay
+  position: absolute
+  display: flex
+  flex-direction: column
+  justify-content: center
+  top: 0
+  left: 0
+  height: 100%
+  width: 100%
+  background-color: #000
+  visibility: hidden
+  opacity: 0
+  transition: opacity 0.5s, visibility 0s 0.5s
+
+#cp-loaderOverlay.is-active
+  visibility: visible
+  transition: opacity 0.5s
+  opacity: 1
+
+#cp-loaderOverlay.is-semi-active
+  visibility: visible
+  transition: opacity 0.5s
+  opacity: 0.75
