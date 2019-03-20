@@ -1,7 +1,6 @@
-import { IAppState } from './types'
-import { parseConfig } from './parseConfig'
-import { recursivePropertyGetter } from './recursivePropGetter'
+import { provideAppState } from './provideAppState'
 import example from './example.json'
+import { IAppState } from '../types'
 
 export function generateExample(): IAppState {
   if (process.env.CPExampleData) {
@@ -12,8 +11,5 @@ export function generateExample(): IAppState {
     throw new Error('Provide CleverPay config.json file')
   }
 
-  return {
-    ...example,
-    interface: recursivePropertyGetter(parseConfig(process.env.CPConfig), 'example'),
-  }
+  return provideAppState(process.env.CPConfig, example)
 }

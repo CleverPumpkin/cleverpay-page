@@ -30,7 +30,6 @@
     "@babel/plugin-proposal-class-properties": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-typescript": "^7.3.3",
-    "@types/lodash": "^4.14.123",
     "@types/lodash-es": "^4.17.3",
     "@typescript-eslint/eslint-plugin": "^1.4.2",
     "@typescript-eslint/parser": "^1.4.2",

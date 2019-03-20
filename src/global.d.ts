@@ -1,5 +1,6 @@
 import { CPPageManager } from './index'
-import { IConfig, IAppState } from './generateExample/types'
+import { IRawConfig } from './generateExample/types'
+import { IAppState } from './types'
 
 export {}
 
@@ -13,7 +14,7 @@ declare global {
     env: {
       // For vendor libs
       NODE_ENV: 'development' | 'production'
-      CPConfig: IConfig
+      CPConfig: IRawConfig
       CPTimerRegenerateConfig: number
       CPExampleData?: IAppState
     }

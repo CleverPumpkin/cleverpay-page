@@ -1,6 +1,6 @@
 import { generateExample } from './generateExample'
-import { IAppState } from './generateExample/types'
 import { setNewState } from './state'
+import { IAppState } from './types'
 
 export class CPPageManager {
   public constructor() {
@@ -25,14 +25,6 @@ export class CPPageManager {
   public setNewState(state: IAppState): void {
     setNewState(state)
   }
-
-  /**
-   * 4 задачи:
-   *
-   * 2. установить нужное количество кнопок из мета-элемента кнопки
-   * 3. всем объектам по селектору '[data-cp]' установить нужные свойства согласно конфигу
-   * 4. хендлинг специальных случаев: модалка (2 вида), классы у кнопок
-   */
 }
 
 window.CPPageManager = new CPPageManager()

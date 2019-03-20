@@ -1,3 +1,5 @@
+import { IPossibleValueTypes } from './configValueMap'
+
 enum PropertyTypes {
   string = 'string',
   number = 'number',
@@ -5,35 +7,19 @@ enum PropertyTypes {
   color = 'color',
 }
 
-export interface IFieldData {
-  type: PropertyTypes
-  required?: boolean
-  choices?: string[]
-  default?: string
-}
-
-export interface IConfig {
-  [field: string]: IFieldData | IConfig
-}
-
-export interface IParsedFieldData {
-  example: any
-  default?: string
-}
-
-export interface IParsedConfig {
-  [field: string]: IParsedConfig | IParsedFieldData
-}
-
-interface IRecursiveObject {
-  [key: string]: any | IRecursiveObject
-}
-
-export interface IAppState {
-  standard: {
-    buttons: { [key: string]: any }[]
-    [key: string]: any
+export interface IRawConfig {
+  [field: string]: {
+    type: PropertyTypes
+    required?: boolean
+    choices?: string[]
+    default?: string
   }
-  runtime: { [key: string]: any }
-  interface: IRecursiveObject
+}
+
+/**
+ * It contains links to example generator methods. It can be called as much as you wish,
+ * and the result will always be different.
+ */
+export interface IConfigExampleGenerator {
+  [field: string]: () => IPossibleValueTypes
 }

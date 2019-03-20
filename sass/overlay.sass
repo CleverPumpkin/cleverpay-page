@@ -8,14 +8,14 @@
   height: 100%
   width: 100%
   background-color: #000
-  visibility: hidden
-  opacity: 0
+  visibility: visible
+  opacity: 1
   transition: opacity 0.5s, visibility 0s 0.5s
 
-#cp-loaderOverlay.is-active
-  visibility: visible
+#cp-loaderOverlay.is-inactive
+  visibility: hidden
   transition: opacity 0.5s
-  opacity: 1
+  opacity: 0
 
 #cp-loaderOverlay.is-semi-active
   visibility: visible

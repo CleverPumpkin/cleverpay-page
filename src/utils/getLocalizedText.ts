@@ -1,11 +1,9 @@
-import { IAppState } from '../generateExample/types'
+import { ILocalizableText, IAppState } from '../types'
 
-interface ILocalizedText {
-  [locale: string]: string
-}
-
-export function getLocalizedText(data: ILocalizedText, settings: IAppState): string {
-  const { locale, fallbackLocale } = settings.standard.settings
-
+export function getLocalizedText(
+  data: ILocalizableText,
+  settings: IAppState['standard']['settings']
+): string {
+  const { locale, fallbackLocale } = settings
   return data[locale] || data[fallbackLocale]
 }

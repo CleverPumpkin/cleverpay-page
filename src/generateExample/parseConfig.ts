@@ -1,31 +1,38 @@
-import { IParsedConfig, IConfig, IFieldData } from './types'
+import { IConfigExampleGenerator, IRawConfig } from './types'
 import { configValueMap } from './configValueMap'
 import { forOwn, isArray, includes, isEmpty } from 'lodash-es'
 
-export function parseConfig(dataObject: IConfig): IParsedConfig {
-  const result: IParsedConfig = {}
-  forOwn(dataObject, (value, key) => {
-    if (!value.type) {
-      result[key] = parseConfig(value as IConfig)
-      return
+export function parseConfig(dataObject: IRawConfig): IConfigExampleGenerator {
+  const result: IConfigExampleGenerator = {}
+
+  forOwn(dataObject, (configValue, field) => {
+    if (typeof configValue.required === 'undefined') {
+      // "required" parameter is not required by default and has the default value of true
+      configValue.required = true
     }
 
-    const typedValue = value as IFieldData
-
     // Asserting, that default value is present in choices
-    if (isArray(typedValue.choices) && !isEmpty(typedValue.choices)) {
-      if (typedValue.default && !includes(typedValue.choices, typedValue.default)) {
+    if (isArray(configValue.choices) && !isEmpty(configValue.choices)) {
+      if (configValue.default && !includes(configValue.choices, configValue.default)) {
         console.error(
-          `[${key}] Default value "${
-            typedValue.default
-          }" is not included in choices: "${typedValue.choices.join(', ')}"`
+          `[${field}] Default value "${
+            configValue.default
+          }" is not included in choices: "${configValue.choices.join(', ')}"`
         )
       }
     }
 
-    result[key] = {
-      example: configValueMap[typedValue.type].exampleValue(key),
-      default: typedValue.default,
+    /**
+     * Other assertions:
+     * 1. no choice or default for localizable
+     * 2. default value is of correct type (color, number and string)
+     */
+
+    result[field] = () => {
+      return configValueMap[configValue.type]({
+        fieldName: field,
+        required: configValue.required as boolean,
+      })
     }
   })
 
