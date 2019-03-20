@@ -13,9 +13,9 @@ export type IPossibleValueTypes = string | number | ILocalizableText | undefined
 
 export const configValueMap: { [dataType: string]: (args: IExampleArg) => IPossibleValueTypes } = {
   localizable: ({ fieldName }) => ({
-    en_US: `Hello! {price} (${fieldName})`,
-    es_ES: `¡Hola! {price} (${fieldName})`,
-    ru_RU: `Привет! {price} (${fieldName})`,
+    'en-US': `Hello! {price} (${fieldName})`,
+    'es-ES': `¡Hola! {price} (${fieldName})`,
+    'ru-RU': `Привет! {price} (${fieldName})`,
   }),
   string: ({ fieldName }) =>
     `${Math.random()

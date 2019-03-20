@@ -2,7 +2,7 @@ const el = document.getElementById('cp-loaderOverlay')
 
 export function hideInitialOverlay(): void {
   if (el) {
-    setTimeout(() => el.classList.add('is-inactive'), 1000)
+    setTimeout(() => el.classList.remove('is-active'))
   }
 }
 

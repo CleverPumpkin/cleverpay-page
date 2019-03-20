@@ -56,8 +56,8 @@ export function syncButtons(state: IAppState): void {
             button.customization.text as ILocalizableText,
             state.standard.settings
           )
+          // Generating a span-element for every node of text, that is splitted by placeholder {price}
           flatten(
-            // Generating a span-element for every node of text, that is splitted by placeholder {price}
             translatedButtonText.split(buttonPricePlaceholder).map((item, index, arr) => {
               const result = []
               const textSpan = document.createElement('span')
