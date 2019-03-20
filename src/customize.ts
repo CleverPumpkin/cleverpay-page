@@ -13,6 +13,7 @@ interface IElementConfig {
 export enum DataAttributeValues {
   usual = 'data-cp',
   button = 'data-cp-button',
+  buttonPrice = 'data-cp-button-price',
   minCounter = 'data-cp-min',
   maxCounter = 'data-cp-max',
 }

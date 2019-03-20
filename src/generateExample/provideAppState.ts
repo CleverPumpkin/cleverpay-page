@@ -19,23 +19,22 @@ const currencyChoices = ['USD', 'EUR', 'CHM', 'RUB', 'BRL', 'JPY']
 
 export function provideAppState(rawConfig: IRawConfig): IAppState {
   const result: IAppState = {
-    standard: { settings: { locale: 'en_US', fallbackLocale: 'en_US' }, buttons: [] },
+    standard: { settings: { locale: 'ru-RU', fallbackLocale: 'en-US' }, buttons: [] },
     interface: {},
   }
 
   const parsedConfig = parseConfig(rawConfig)
 
+  // Generating a random set of buttons
   const minButtonCount = parseAttributeCount(DataAttributeValues.minCounter) || 1
   const maxButtonCount = parseAttributeCount(DataAttributeValues.maxCounter) || 3
+  result.standard.buttons = range(random(minButtonCount, maxButtonCount)).map(index => ({
+    order: index + 1,
+    productId: `premium.test.product.${index}`,
+    price: random(0, 10) + 0.99,
+    currency: sample(currencyChoices) as string,
+  }))
 
-  result.standard.buttons = range(random(minButtonCount, maxButtonCount)).map(index => {
-    return {
-      order: index + 1,
-      productId: `premium.test.product.${index}`,
-      price: random(0.99, 10.99, true),
-      currency: sample(currencyChoices) as string,
-    }
-  })
   const buttonStartConfig = 'button.'
   forOwn(parsedConfig, (exampleGenerator, field) => {
     // It is a hardcoded value for config, that holds all the customization options for buttons.

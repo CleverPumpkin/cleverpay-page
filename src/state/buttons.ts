@@ -1,5 +1,7 @@
 import { customizeElement, DataAttributeValues } from '../customize'
-import { IAppState } from '../types'
+import { flatten } from 'lodash-es'
+import { IAppState, ILocalizableText } from '../types'
+import { getLocalizedText } from '../utils/getLocalizedText'
 
 export const buttonsParentSelector = document.querySelector('#cp-buttons') as HTMLElement
 const metaButton = buttonsParentSelector.querySelector('.cp-button') as HTMLElement
@@ -15,9 +17,12 @@ if (metaButton) {
   )
 }
 
+const buttonPricePlaceholder = '{price}'
+
 export function syncButtons(state: IAppState): void {
   // Removing all the old buttons at all
   buttonsParentSelector.querySelectorAll('.cp-button').forEach(item => item.remove())
+  const normalizedLocale = state.standard.settings.locale.replace('_', '-')
 
   state.standard.buttons.map(button => {
     const newButton = metaButton.cloneNode(true) as HTMLElement
@@ -37,6 +42,39 @@ export function syncButtons(state: IAppState): void {
         )
       )
 
+    newButton
+      .querySelectorAll<HTMLElement>(`[${DataAttributeValues.buttonPrice}]`)
+      .forEach(element => {
+        // Using browser provided localization library
+        const formatter = new Intl.NumberFormat(normalizedLocale, {
+          style: 'currency',
+          currency: button.currency,
+        })
+
+        if (button.customization && button.customization.text) {
+          const translatedButtonText = getLocalizedText(
+            button.customization.text as ILocalizableText,
+            state.standard.settings
+          )
+          flatten(
+            // Generating a span-element for every node of text, that is splitted by placeholder {price}
+            translatedButtonText.split(buttonPricePlaceholder).map((item, index, arr) => {
+              const result = []
+              const textSpan = document.createElement('span')
+              textSpan.textContent = item
+              result.push(textSpan)
+
+              if (index + 1 < arr.length) {
+                const priceSpan = document.createElement('span')
+                priceSpan.classList.add('cp-buttonPrice')
+                priceSpan.textContent = formatter.format(button.price)
+                result.push(priceSpan)
+              }
+              return result
+            })
+          ).map(child => element.appendChild(child))
+        }
+      })
     // ... and append it to the DOM
     buttonsParentSelector.appendChild(newButton)
   })

@@ -26,6 +26,7 @@ export function parseConfig(dataObject: IRawConfig): IConfigExampleGenerator {
      * Other assertions:
      * 1. no choice or default for localizable
      * 2. default value is of correct type (color, number and string)
+     * 3. button.text should be localizable and should exist by any means
      */
 
     result[field] = () => {
