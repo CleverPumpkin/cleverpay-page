@@ -1,6 +1,6 @@
 import { hideInitialOverlay } from './overlay'
 import { setFromDataAttributes } from './dataAttributes'
-import { syncButtons } from './buttons'
+import { syncButtons } from './buttons/generating'
 import { IAppState } from '../types'
 
 export function setNewState(newState: IAppState): void {

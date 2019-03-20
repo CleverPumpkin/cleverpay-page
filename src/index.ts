@@ -1,6 +1,9 @@
 import { generateExample } from './generateExample'
 import { setNewState } from './state'
 import { IAppState } from './types'
+import { pageSendsMessageNative } from './bridge'
+import { toggleSemiActiveOverlay } from './state/overlay'
+import { toggleButtonAvailability } from './state/buttons/states'
 
 export class CPPageManager {
   public constructor() {
@@ -24,6 +27,23 @@ export class CPPageManager {
 
   public setNewState(state: IAppState): void {
     setNewState(state)
+  }
+
+  public purchaseRequest(productId: string): void {
+    toggleSemiActiveOverlay()
+    pageSendsMessageNative(JSON.stringify({ type: 'purchase', productId }))
+    if (process.env.NODE_ENV === 'development') {
+      setTimeout(this.purchaseFinished, 2500)
+    }
+  }
+
+  public purchaseFinished(): void {
+    toggleSemiActiveOverlay()
+    toggleButtonAvailability()
+  }
+
+  public screenOpen(): void {
+    pageSendsMessageNative(JSON.stringify({ type: 'screenOpen' }))
   }
 }
 

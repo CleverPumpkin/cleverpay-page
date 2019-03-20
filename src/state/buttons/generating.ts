@@ -1,7 +1,8 @@
-import { customizeElement, DataAttributeValues } from '../customize'
+import { customizeElement, DataAttributeValues } from '../../customize'
 import { flatten } from 'lodash-es'
-import { IAppState, ILocalizableText } from '../types'
-import { getLocalizedText } from '../utils/getLocalizedText'
+import { IAppState, ILocalizableText } from '../../types'
+import { getLocalizedText } from '../../utils/getLocalizedText'
+import { toggleSemiActiveOverlay } from '../overlay'
 
 export const buttonsParentSelector = document.querySelector('#cp-buttons') as HTMLElement
 const metaButton = buttonsParentSelector.querySelector('.cp-button') as HTMLElement
@@ -31,6 +32,9 @@ export function syncButtons(state: IAppState): void {
     newButton.style.display = ''
     newButton.classList.add('cp-button')
 
+    // If the price isn't loaded yet, we add loading class
+    button.price ? newButton.classList.remove('is-loading') : newButton.classList.add('is-loading')
+
     newButton
       .querySelectorAll<HTMLElement>(`[${DataAttributeValues.button}]`)
       .forEach(element =>
@@ -51,7 +55,8 @@ export function syncButtons(state: IAppState): void {
           currency: button.currency,
         })
 
-        if (button.customization && button.customization.text) {
+        if (button.price && button.customization && button.customization.text) {
+          // Product may have already loaded
           const translatedButtonText = getLocalizedText(
             button.customization.text as ILocalizableText,
             state.standard.settings
@@ -67,7 +72,7 @@ export function syncButtons(state: IAppState): void {
               if (index + 1 < arr.length) {
                 const priceSpan = document.createElement('span')
                 priceSpan.classList.add('cp-buttonPrice')
-                priceSpan.textContent = formatter.format(button.price)
+                priceSpan.textContent = formatter.format(button.price as number)
                 result.push(priceSpan)
               }
               return result
@@ -75,6 +80,12 @@ export function syncButtons(state: IAppState): void {
           ).map(child => element.appendChild(child))
         }
       })
+
+    newButton.addEventListener('click', e => {
+      e.preventDefault()
+      window.CPPageManager.purchaseRequest(button.productId)
+    })
+    
     // ... and append it to the DOM
     buttonsParentSelector.appendChild(newButton)
   })

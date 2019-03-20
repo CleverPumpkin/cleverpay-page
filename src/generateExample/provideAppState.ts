@@ -2,7 +2,7 @@ import { forOwn, startsWith, random, range, sample } from 'lodash-es'
 import { IRawConfig } from './types'
 import { parseConfig } from './parseConfig'
 import { IAppState } from '../types'
-import { buttonsParentSelector } from '../state/buttons'
+import { buttonsParentSelector } from '../state/buttons/generating'
 import { DataAttributeValues } from '../customize'
 
 function parseAttributeCount(attribute: string): number | undefined {
@@ -31,7 +31,7 @@ export function provideAppState(rawConfig: IRawConfig): IAppState {
   result.standard.buttons = range(random(minButtonCount, maxButtonCount)).map(index => ({
     order: index + 1,
     productId: `premium.test.product.${index}`,
-    price: random(0, 10) + 0.99,
+    price: random(0, 2) ? random(0, 10) + 0.99 : undefined,
     currency: sample(currencyChoices) as string,
   }))
 

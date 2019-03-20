@@ -7,8 +7,8 @@ export interface IAppState {
     buttons: {
       order: number
       productId: string
-      price: number
-      currency: string
+      price?: number
+      currency?: string
       customization?: ICustomizationData
     }[]
   }

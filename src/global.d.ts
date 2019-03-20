@@ -4,6 +4,10 @@ import { IAppState } from './types'
 
 export {}
 
+interface IPostMessage {
+  postMessage: (message?: string) => void
+}
+
 declare global {
   // eslint-disable-next-line @typescript-eslint/interface-name-prefix
   interface Window {
@@ -19,6 +23,16 @@ declare global {
       CPExampleData?: IAppState
     }
   }
+
+  var webkit: {
+    messageHandlers: {
+      pageSendsMessage: IPostMessage
+      closeModal: IPostMessage
+    }
+  }
+
+  let pageSendsMessage: ((message: string) => void) | undefined
+  let closeModal: (() => void) | undefined
 }
 
 declare module '*.json' {
