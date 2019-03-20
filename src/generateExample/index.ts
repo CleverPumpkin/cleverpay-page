@@ -1,5 +1,4 @@
 import { provideAppState } from './provideAppState'
-import example from './example.json'
 import { IAppState } from '../types'
 
 export function generateExample(): IAppState {
@@ -11,5 +10,5 @@ export function generateExample(): IAppState {
     throw new Error('Provide CleverPay config.json file')
   }
 
-  return provideAppState(process.env.CPConfig, example)
+  return provideAppState(process.env.CPConfig)
 }

@@ -17,10 +17,9 @@ function parseAttributeCount(attribute: string): number | undefined {
 
 const currencyChoices = ['USD', 'EUR', 'CHM', 'RUB', 'BRL', 'JPY']
 
-export function provideAppState(rawConfig: IRawConfig, exampleStarter: IAppState): IAppState {
+export function provideAppState(rawConfig: IRawConfig): IAppState {
   const result: IAppState = {
-    standard: exampleStarter.standard,
-    runtime: exampleStarter.runtime,
+    standard: { settings: { locale: 'en_US', fallbackLocale: 'en_US' }, buttons: [] },
     interface: {},
   }
 
