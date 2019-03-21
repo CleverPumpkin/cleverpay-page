@@ -2,7 +2,6 @@ import { customizeElement, DataAttributeValues } from '../../customize'
 import { flatten } from 'lodash-es'
 import { IAppState, ILocalizableText } from '../../types'
 import { getLocalizedText } from '../../utils/getLocalizedText'
-import { toggleSemiActiveOverlay } from '../overlay'
 
 export const buttonsParentSelector = document.querySelector('#cp-buttons') as HTMLElement
 const metaButton = buttonsParentSelector.querySelector('.cp-button') as HTMLElement
@@ -31,9 +30,6 @@ export function syncButtons(state: IAppState): void {
     // We rollback all the local changes to meta-button
     newButton.style.display = ''
     newButton.classList.add('cp-button')
-
-    // If the price isn't loaded yet, we add loading class
-    button.price ? newButton.classList.remove('is-loading') : newButton.classList.add('is-loading')
 
     newButton
       .querySelectorAll<HTMLElement>(`[${DataAttributeValues.button}]`)
@@ -81,11 +77,17 @@ export function syncButtons(state: IAppState): void {
         }
       })
 
-    newButton.addEventListener('click', e => {
-      e.preventDefault()
-      window.CPPageManager.purchaseRequest(button.productId)
-    })
-    
+    // If the price isn't loaded yet, we add loading class
+    if (button.price) {
+      newButton.classList.remove('is-loading')
+      newButton.addEventListener('click', e => {
+        e.preventDefault()
+        window.CPPageManager.purchaseRequest(button.productId)
+      })
+    } else {
+      newButton.classList.add('is-loading')
+    }
+
     // ... and append it to the DOM
     buttonsParentSelector.appendChild(newButton)
   })
