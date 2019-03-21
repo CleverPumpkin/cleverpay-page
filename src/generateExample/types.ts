@@ -1,6 +1,6 @@
 import { IPossibleValueTypes } from './configValueMap'
 
-enum PropertyTypes {
+export enum PropertyTypes {
   string = 'string',
   number = 'number',
   localizable = 'localizable',

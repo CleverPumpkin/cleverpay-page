@@ -68,7 +68,8 @@ export function syncButtons(state: IAppState): void {
               if (index + 1 < arr.length) {
                 const priceSpan = document.createElement('span')
                 priceSpan.classList.add('cp-buttonPrice')
-                priceSpan.textContent = formatter.format(button.price as number)
+                // Here we paste a non-breaking space &nbsp;
+                priceSpan.textContent = ` ${formatter.format(button.price as number)} `
                 result.push(priceSpan)
               }
               return result
