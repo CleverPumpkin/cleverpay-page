@@ -1,0 +1,25 @@
+html {
+  // Making content unselectable by long tap
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  
+  // Hiding outline for tapped state
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  // Disabling "bounce" effect on page
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  // Disabling "bounce" effect on page, vol. 2
+  height: 100%;
+  overflow: auto;
+}
+
+// Hiding scrollbar on iOS devices
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
