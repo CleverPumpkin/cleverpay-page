@@ -12,35 +12,37 @@ interface IExampleArg {
 
 export type IPossibleValueTypes = string | number | ILocalizableText | undefined
 
-const randomBool = (): boolean => random(1, 100) > 75
+const randomBool = (chance = 75): boolean => random(1, 100) < chance
+function generateResults(
+  fn: (fieldname: string) => IPossibleValueTypes
+): (args: IExampleArg) => IPossibleValueTypes {
+  return (args: IExampleArg) => {
+    const { defaultValue, required, fieldName, choices } = args
+    if (!required && randomBool(30)) {
+      return
+    }
+    if (defaultValue && randomBool(75)) {
+      return defaultValue
+    }
+    if (choices) {
+      return sample(choices)
+    }
+    return fn(fieldName)
+  }
+}
 
 export const configValueMap: { [dataType: string]: (args: IExampleArg) => IPossibleValueTypes } = {
-  localizable: ({ fieldName }) => {
+  localizable: generateResults(fieldName => {
     const text = `${fieldName}: ${generateWords(random(1, 20))}`
     return {
       'en-US': text,
       'es-ES': text,
       'ru-RU': text,
     }
-  },
-  string: ({ fieldName, choices, defaultValue }) => {
-    if (defaultValue && randomBool()) {
-      return defaultValue
-    }
-    return sample(choices) || `${generateWords(random(1, 10))} (${fieldName})`
-  },
-  number: ({ choices, defaultValue }) => {
-    if (defaultValue && randomBool()) {
-      return defaultValue
-    }
-    return sample(choices) || random(1, 1000)
-  },
-  color: ({ choices, defaultValue }) => {
-    if (defaultValue && randomBool()) {
-      return defaultValue
-    }
-    return sample(choices) || `#${Math.floor(Math.random() * 16777215).toString(16)}`
-  },
+  }),
+  string: generateResults(fieldName => `${generateWords(random(1, 10))} (${fieldName})`),
+  number: generateResults(() => random(1, 1000)),
+  color: generateResults(() => `#${Math.floor(Math.random() * 16777215).toString(16)}`),
   buttonText: () => ({
     'en-US': `Buy for {price}`,
     'es-ES': `Comprar por {price}`,

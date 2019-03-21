@@ -70,6 +70,8 @@ export function parseConfig(dataObject: IRawConfig): IConfigExampleGenerator {
       return configValueMap[configValue.type]({
         fieldName: field,
         required: configValue.required as boolean,
+        choices: configValue.choices,
+        defaultValue: configValue.default,
       })
     }
   })
