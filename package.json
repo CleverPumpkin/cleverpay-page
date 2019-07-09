@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "SDK to control CleverPay based payment pages",
   "main": "index.js",
-  "scripts": {
-    "compileExampleGenerator": "tsc ./scripts/generateExample.ts --target ES2017 --module commonjs --lib es2017"
-  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/CleverPumpkin/cleverpay-page.git"

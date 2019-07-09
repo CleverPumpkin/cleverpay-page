@@ -27,8 +27,8 @@ Temporary Items
 .apdisk
 
 ## IDE
-.vscode
-.idea
+.vscode/
+.idea/
 
 ## JS
 built/
