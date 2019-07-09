@@ -2,8 +2,13 @@ import { closeModal, pageSendsMessage } from './bridge'
 
 window.CleverPayManager = {
   _tracked: false,
+  overlayElement: document.getElementById('cp-loaderOverlay'),
 
   subscriptions: [],
+
+  init: function() {
+
+  },
 
   subscribe: function(callback) {
     this.subscriptions.push(callback)
@@ -18,14 +23,12 @@ window.CleverPayManager = {
   },
 
   toggleSemiActiveOverlay: function() {
-    var el =  document.getElementById('cp-loaderOverlay')
-    el.classList.add('is-semi-active')
+    this.overlayElement.classList.add('is-semi-active')
   },
 
   toggleInactiveOverlay: function() {
-    var el =  document.getElementById('cp-loaderOverlay')
-    el.classList.remove('is-active')
-    el.classList.remove('is-semi-active')
+    this.overlayElement.classList.remove('is-active')
+    this.overlayElement.classList.remove('is-semi-active')
   },
 
   pageReceivesMessage: function(message) {

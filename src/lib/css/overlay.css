@@ -8,7 +8,7 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: #000;
+  background-color: rgb(255, 255, 255);
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.5s, visibility 0s 0.5s;

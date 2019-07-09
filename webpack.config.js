@@ -6,7 +6,6 @@ const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin
 
 const argv = require("minimist")(process.argv.slice(2));
 const isProduction = !!argv.prod;
-const rootPath = path.join(process.cwd(), "src");
 
 const commonConfig = {
   mode: isProduction ? "production" : "development",
@@ -14,7 +13,7 @@ const commonConfig = {
   devtool: isProduction ? false : "inline-source-map",
   output: {
     filename: "[name].build.js",
-    path: path.join(rootPath, 'dist')
+    path: path.join(process.cwd(), 'dist')
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -33,6 +32,15 @@ const commonConfig = {
   module: {
     rules: [
       {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader',
+          options: {
+            attrs: [':src']
+          }
+        }
+      },      
+      {
         test: /\.m?js$/,
         exclude: /node_modules/,
         use: { loader: "babel-loader" }
@@ -42,9 +50,9 @@ const commonConfig = {
         use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"]
       },
       {
-        test: /\.(jpe?g|png|ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-        use: "base64-inline-loader?limit=100000&name=[name].[ext]"
-      }
+        test: /\.(png|jpg|gif|svg|eot|woff|ttf|woff2)$/i,
+        use: 'url-loader',
+      },
     ]
   }
 };
