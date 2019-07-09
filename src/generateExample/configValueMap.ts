@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { random, sample } from 'lodash-es'
 import { ILocalizableText } from '../types'
 import { generateWords } from '../utils/generateText'

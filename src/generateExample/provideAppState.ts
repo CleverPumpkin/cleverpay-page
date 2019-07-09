@@ -19,7 +19,7 @@ const currencyChoices = ['USD', 'EUR', 'CHM', 'RUB', 'BRL', 'JPY']
 
 export function provideAppState(rawConfig: IRawConfig): IAppState {
   const result: IAppState = {
-    standard: { settings: { locale: 'ru-RU', fallbackLocale: 'en-US' }, buttons: [] },
+    standard: { settings: { locale: 'en-US', fallbackLocale: 'en-US' }, buttons: [] },
     interface: {},
   }
 

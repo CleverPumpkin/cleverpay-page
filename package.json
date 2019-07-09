@@ -50,6 +50,11 @@
     "webpack-cli": "^3.2.3"
   },
   "dependencies": {
-    "lodash-es": "^4.17.11"
+    "autoprefixer": "^9.5.0",
+    "html-webpack-inline-source-plugin": "^0.0.10",
+    "lodash-es": "^4.17.11",
+    "minimalist": "^1.0.0",
+    "postcss-loader": "^3.0.0",
+    "postcss-nested": "^4.1.2"
   }
 }
