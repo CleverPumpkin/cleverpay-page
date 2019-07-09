@@ -17,41 +17,34 @@
   ],
   "author": "Dan Kozlov",
   "license": "MIT",
-  "private": true,
   "bugs": {
     "url": "https://github.com/CleverPumpkin/cleverpay-page/issues"
   },
   "homepage": "https://github.com/CleverPumpkin/cleverpay-page#readme",
-  "devDependencies": {
+  "scripts": {
+    "build": "webpack --prod",
+    "dev": "webpack-dev-server --open"
+  },
+  "browserslist": [
+    "iOS >= 10",
+    "Android >= 4.4"
+  ],
+  "dependencies": {
     "@babel/core": "^7.3.4",
-    "@babel/plugin-proposal-class-properties": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
-    "@babel/preset-typescript": "^7.3.3",
-    "@types/lodash-es": "^4.17.3",
-    "@typescript-eslint/eslint-plugin": "^1.4.2",
-    "@typescript-eslint/parser": "^1.4.2",
+    "autoprefixer": "^9.5.0",
     "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^2.0.1",
     "css-loader": "^2.1.1",
-    "eslint": "^5.15.1",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-import-resolver-typescript": "^1.1.1",
-    "eslint-plugin-prettier": "^3.0.1",
+    "html-webpack-inline-source-plugin": "^0.0.10",
+    "minimalist": "^1.0.0",
     "node-sass": "^4.11.0",
-    "prettier": "^1.16.4",
+    "postcss-loader": "^3.0.0",
+    "postcss-nested": "^4.1.2",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
-    "ts-node": "^8.0.3",
-    "typescript": "^3.3.3333",
     "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3"
-  },
-  "dependencies": {
-    "autoprefixer": "^9.5.0",
-    "html-webpack-inline-source-plugin": "^0.0.10",
-    "lodash-es": "^4.17.11",
-    "minimalist": "^1.0.0",
-    "postcss-loader": "^3.0.0",
-    "postcss-nested": "^4.1.2"
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.7.2"
   }
 }
