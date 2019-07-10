@@ -4,16 +4,6 @@ html {
 
   /* Hiding outline for tapped state */
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  /* Disabling "bounce" effect on page */
-  height: 100%;
-  overflow: hidden;
-}
-
-body {
-  /* Disabling "bounce" effect on page, vol. 2 */
-  height: 100%;
-  overflow: auto;
 }
 
 /* Hiding scrollbar on iOS devices */
