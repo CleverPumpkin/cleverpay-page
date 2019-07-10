@@ -7,7 +7,8 @@ window.CleverPayManager = {
   subscriptions: [],
 
   init: function() {
-
+    this.toggleInactiveOverlay()
+    this.trackOpen()
   },
 
   subscribe: function(callback) {
@@ -20,6 +21,10 @@ window.CleverPayManager = {
 
   initializePurchase: function(productId) {
     pageSendsMessage({ type: 'purchase', productId: productId })
+  },
+
+  initialisePurchaseRestoration: function() {
+    pageSendsMessage({ type: 'restorePurchases' })
   },
 
   toggleSemiActiveOverlay: function() {

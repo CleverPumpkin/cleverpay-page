@@ -1,3 +1,4 @@
+// Our basic CleverPay library
 import './lib/index'
 
 // We strongly recommend adding this file to make UX more native alike. For example, it
